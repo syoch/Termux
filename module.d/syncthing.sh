@@ -1,11 +1,10 @@
 #!/bin/bash
 
 TMP=$PREFIX/tmp
-BIN=~/bin
 
 SYNCTHING_NAME=syncthing-linux-arm64-v1.29.5
 SYNCTHING_URL=https://github.com/syncthing/syncthing/releases/download/v1.29.5/syncthing-linux-arm64-v1.29.5.tar.gz
-SYNCTHING_PATH=$BIN/syncthing
+SYNCTHING_PATH=$HOME/apps/syncthing
 SYNCTHING_ARC=$TMP/syncthing.tgz
 
 [ -f $SYNCTHING_ARC ] || curl -L $SYNCTHING_URL -o $SYNCTHING_ARC
@@ -17,7 +16,7 @@ ln -sf $PREFIX/share/termux-services/svlogger $PREFIX/var/service/syncthing/log/
 
 cat << EOS > $PREFIX/var/service/syncthing/run
   #!/data/data/com.termux/files/usr/bin/sh
-  exec $BIN/syncthing/syncthing 2>&1
+  exec $SYNCTHING_PATH/syncthing 2>&1
 EOS
 chmod +x $PREFIX/var/service/syncthing/run
 
