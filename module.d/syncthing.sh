@@ -12,13 +12,13 @@ SYNCTHING_ARC=$TMP/syncthing.tgz
 [ -d $TMP/$SYNCTHING_NAME ] || tar -xvf $SYNCTHING_ARC -C $TMP
 [ -z "$SYNCTHING_PATH/*" ] && mv $TMP/SYNCTHING_NAME $SYNCTHING_PATH
 
-mkdir -p $SVDIR/syncthing/log
-ln -sf $PREFIX/share/termux-services/svlogger $SVDIR/syncthing/log/run
+mkdir -p $PREFIX/var/service/syncthing/log
+ln -sf $PREFIX/share/termux-services/svlogger $PREFIX/var/service/syncthing/log/run
 
-cat << EOS > $SVDIR/syncthing/run
+cat << EOS > $PREFIX/var/service/syncthing/run
   #!/data/data/com.termux/files/usr/bin/sh
   exec $BIN/syncthing/syncthing 2>&1
 EOS
-chmod +x $SVDIR/syncthing/run
+chmod +x $PREFIX/var/service/syncthing/run
 
 sv-enable syncthing
